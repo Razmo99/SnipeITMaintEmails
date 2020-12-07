@@ -1,0 +1,5 @@
+{snipeit_server_name}
+
+There are {snipeit_maintenance_items} items that have upcoming scheduled maintenance.
+
+{text_table}
