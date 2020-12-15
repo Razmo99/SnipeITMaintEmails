@@ -1,4 +1,4 @@
-import os,pathlib
+import os,pathlib, sys
 import logging
 import logging.handlers
 import schedule
@@ -58,13 +58,21 @@ def main():
         logger.info('No Assets found')
 
 if __name__ == "__main__":
-    #Change the current working directory to be the parent of the main.py
-    working_dir=pathlib.Path(__file__).resolve().parent
-    os.chdir(working_dir)
-    print("changed working dir to: "+str(working_dir))
+    if getattr(sys,'frozen',False):
+        #Change the current working directory to be the parent of the main.py
+        working_dir=pathlib.Path(sys._MEIPASS)
+        os.chdir(working_dir)
+    else:
+        #Change the current working directory to be the parent of the main.py
+        working_dir=pathlib.Path(__file__).resolve().parent
+        os.chdir(working_dir)
+    if os.getenv('DEBUG') == True:
+        LoggingLevel=logging.DEBUG
+    else:
+        LoggingLevel=logging.INFO
     #Initialise logging
+    log_name = os.getenv("LOG_SAVE_LOCATION",'snipeit_maint_emailer.log')
     logging_format='%(asctime)s - %(levelname)s - [%(module)s]::%(funcName)s() - %(message)s'
-    log_name = os.getenv("LOG_SAVE_LOCATION",'SnipeITAPI.log')
     rfh = logging.handlers.RotatingFileHandler(
     filename=log_name, 
     mode='a',
@@ -74,14 +82,15 @@ if __name__ == "__main__":
     delay=0
     )
     console=logging.StreamHandler()
-    console.setLevel(logging.INFO)
+    console.setLevel(LoggingLevel)
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=LoggingLevel,
         format=logging_format,
         handlers=[rfh,console]
     )
-    
     logger = logging.getLogger(__name__)
+    logger.info('Working Dir: '+str(working_dir))
+    logger.info('Logging Level: '+str(LoggingLevel))
     def job():
         logger.info('started job')
         logger.info('------------- Starting Session -------------')
@@ -90,7 +99,7 @@ if __name__ == "__main__":
         end=time.time()
         logger.info('Synced in:'+str(end-start)+' Second(s)')
         logger.info('------------- Finished Session -------------')
-
+    #job()
     schedule.every().day.at('08:00').do(job)
     while True:
         schedule.run_pending()

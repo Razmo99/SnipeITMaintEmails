@@ -1,6 +1,8 @@
 # SnipeITMaintEmails
  Sends Reminder emails when Asset Maintenances are due
 
+ Set to send reminders at 8:amm everyday
+
  # Docker Enviroment Variables
 ~~~
 

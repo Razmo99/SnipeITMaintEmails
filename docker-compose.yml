@@ -1,13 +1,13 @@
 version: '3.8'
 services:
   main:
-    restart: unless-stopped
+    #restart: unless-stopped
     env_file:
       - ./.env
     network_mode: host
     build:
       context: .
-      target: develop-stage
+      #target: build-stage
       dockerfile: ./dockerfile
     volumes:
       - storage:/app/storage
