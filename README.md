@@ -14,5 +14,6 @@ MAIN_SERVER_PORT #Port only supports SMTP(25) atm
 MAIL_SENDER_ADDRESS # what email to send from
 MAIL_RECEIVER_ADDRESS # Who to send the mail to
 TZ = # Timezone
+LOG_SAVE_LOCATION # Location to save log file to
 
 ~~~
