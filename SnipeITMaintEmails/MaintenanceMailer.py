@@ -16,9 +16,9 @@ class MaintenanceMailer(object):
         self.port=port
         self.sender=sender
         self.receiver=receiver
-        self.message_body_html='message.html' if message_body_html is None else message_body_html
-        self.message_body_text='message.txt' if message_body_text is None else message_body_text
-        self.message_body_logo='logo.png' if message_body_logo is None else message_body_logo
+        self.message_body_html='message.html' if not message_body_html else message_body_html
+        self.message_body_text='message.txt' if not message_body_text else message_body_text
+        self.message_body_logo='logo.png' if not message_body_logo else message_body_logo
 
 
 
