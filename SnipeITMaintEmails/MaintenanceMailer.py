@@ -48,7 +48,7 @@ class MaintenanceMailer(object):
         formating_headers=''.join(formating_headers)
         #List to store output
         rows_output=[]
-        #Iterate over inputed data
+        #Iterate over inputted data
         for index,result in enumerate(results):
             #If its the first row append the header
             if index == 0:
@@ -57,7 +57,7 @@ class MaintenanceMailer(object):
                 for key,value in headers.items():
                     spacer.append('-'*value)
                 rows_output.append((formating_headers+'\n').format(*spacer))
-            #Append a rown to the list
+            #Append a row to the list
             rows_output.append((formating_rows+'\n').format(**result))
         #Join all the rows and headers into one string
         output=''.join(rows_output)
@@ -71,14 +71,14 @@ class MaintenanceMailer(object):
         table_row_href_format ='<td style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #74787E; font-size: 15px; line-height: 18px; padding: 10px 0; text-align: left;"><a href="{row_href}" style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; color: #3869D4;">{row_value}</a></td>'
         table_headers=[]
         table_rows=[]
-        #Iterate over inputed data
+        #Iterate over inputted data
         for index,result in enumerate(results):
             #Iterate over key value pairs
             table_rows.append('<tr>\n')
             for row_index,(key,value) in enumerate(result.items(),1):
                 #Setup headers
                 if index == 0:
-                    #Dont add a header for href key
+                    #Don't add a header for href key
                     if not key == href_key:
                         #Append out header to a row
                         if len(result.keys()) > row_index:
@@ -102,13 +102,13 @@ class MaintenanceMailer(object):
         return headers, rows;
 
     def create(self,html,text,subject,receiver,data,href_key=None,Href_target=None):
-        """create's the email object
+        """creates the email object
             Arguments:
                 html {string} -- html content template
                 text {string} -- text content template
                 subject {string} -- subject of email
                 receiver {string} -- email address of the receiver
-                data {list} -- contains a list of dict's with data to populate email tempalte with
+                data {list} -- contains a list of dicts with data to populate email template with
 
             returns:
                 MimeMultipart Object
