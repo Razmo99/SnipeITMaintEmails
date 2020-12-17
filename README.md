@@ -1,5 +1,5 @@
 # SnipeITMaintEmails
-Sends Reminder emails when Asset Maintenances are due on Snipe-IT\
+Sends Reminder emails when Asset Maintenances are due on Snipe-IT
 
 Set to send reminders at 8:00am everyday
 
