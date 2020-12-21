@@ -66,7 +66,7 @@ if __name__ == "__main__":
         #Change the current working directory to be the parent of the main.py
         working_dir=pathlib.Path(__file__).resolve().parent
         os.chdir(working_dir)
-    if os.getenv('DEBUG') == True:
+    if os.getenv('DEBUG') == "True":
         LoggingLevel=logging.DEBUG
     else:
         LoggingLevel=logging.INFO
