@@ -27,7 +27,7 @@ RUN mkdir /app/storage
 #Copy python dependencies from previous venv
 COPY --from=develop-stage /venv /venv
 #run pyinstaller to make a one-file bundled executable of the app
-RUN pyinstaller -F main.py
+RUN pyinstaller -F main.spec
 #run staticx to grab a linux dependencies and make a package of it
 RUN staticx /app/dist/main /app/dist/main_tmp
 #Entry command for this stage
