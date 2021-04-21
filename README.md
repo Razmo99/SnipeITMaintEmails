@@ -5,7 +5,7 @@ Set to send reminders at 8:00am everyday
 
 ## TODO
 - [ ] Configurable reminder times.
-- [ ] functionality to send to non local mail server
+- [x] functionality to send to non local mail server
 
 ## How it works
 1. Connects to Snipe-IT instance and retrieves all Maintenances.
@@ -31,8 +31,14 @@ Set to send reminders at 8:00am everyday
 - SNIPEIT_SERVER_NAME {string} # Name of the Snipe-IT Server ***Required**
 - SNIPEIT_TOKEN {string} # API Token from Snipe-IT ***Required**
 - MAIL_SERVER {string} # DNS of local exchange server ***Required**
-- MAIN_SERVER_PORT {string} # mail port ***Required**
-    - Only supports SMTP(25) currently
+- MAIL_SERVER_PORT {string} # mail port ***Required**
+    - Defaults to 587
+- MAIL_SERVER_USE_TLS # connected to the smtp using starttls
+- MAIL_SERVER_USERNAME # Credentials
+    - ***Required if using TLS**
+    - Defaults to sender if not specified
+- MAIL_SERVER_PASSWORD # Credentials
+    - ***Required if using TLS**
 - MAIL_SENDER_ADDRESS {string} # what email to send from ***Required**
 - MAIL_RECEIVER_ADDRESS {string} # Who to send the mail to ***Required**
 - TZ = {string} # Timezone
@@ -40,6 +46,7 @@ Set to send reminders at 8:00am everyday
 - LOG_SAVE_LOCATION {string} # Location to save log file
     - This can be just a file name i.e "snipeit_maint_emails.log" or the full directory path "/app/storage/snipeit_maint_emails.log"
  - DEBUG {bool} # logging level
+    - Runs the job immediately on launch to make it quicker to resolve errors
 
  _If no "save locations" are specified default names will be used and files will be placed in the working dir of the app_   
 

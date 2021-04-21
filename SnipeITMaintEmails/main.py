@@ -13,7 +13,12 @@ def main():
     snipeit_server_name=os.getenv('SNIPEIT_SERVER_NAME','Snipe-IT')
     snipeit_token =os.getenv('SNIPEIT_TOKEN','')
     exchange_server=os.getenv('MAIL_SERVER','')
-    exchange_server_port=os.getenv('MAIN_SERVER_PORT','25')
+    exchange_server_port=os.getenv('MAIL_SERVER_PORT','587')
+
+    exchange_server_use_tls=os.getenv('MAIL_SERVER_USE_TLS','')
+    exchange_server_username=os.getenv('MAIL_SERVER_USERNAME','')
+    exchange_server_password=os.getenv('MAIL_SERVER_PASSWORD','')
+
     exchange_sender_email=os.getenv('MAIL_SENDER_ADDRESS','')
     exchange_receiver_email=os.getenv('MAIL_RECEIVER_ADDRESS','')
 
@@ -39,7 +44,10 @@ def main():
             snipeit_server_name,
             exchange_server_port,
             exchange_sender_email,
-            exchange_receiver_email)
+            exchange_receiver_email,
+            use_tls=exchange_server_use_tls,
+            username=exchange_server_username,
+            password=exchange_server_password)
         message=MaintMail.create(
             MaintMail.message_body_html,
             MaintMail.message_body_text,
@@ -99,7 +107,8 @@ if __name__ == "__main__":
         end=time.time()
         logger.info('Synced in:'+str(end-start)+' Second(s)')
         logger.info('------------- Finished Session -------------')
-    #job()
+    if os.getenv('DEBUG') == "True":
+        job()
     schedule.every().day.at('08:00').do(job)
     while True:
         schedule.run_pending()

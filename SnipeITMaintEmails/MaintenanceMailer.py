@@ -10,10 +10,14 @@ logger.debug('Importing Module : '+__name__)
 
 class MaintenanceMailer(object):
     """Class to manage Mail"""
-    def __init__(self,server,server_name,port,sender,receiver,message_body_html=None,message_body_text=None,message_body_logo=None):
+    def __init__(self,server,server_name,port,sender=None,receiver,message_body_html=None,message_body_text=None,message_body_logo=None,use_tls=None,username=None,password=None):
         self.server=server
         self.server_name=server_name
         self.port=port
+        self.use_tls=True if ssl else False
+        self.username=username if username else sender
+        self.password=password
+        self.ssl_context=ssl.create_default_context()
         self.sender=sender
         self.receiver=receiver
         self.message_body_html='message.html' if not message_body_html else message_body_html
@@ -153,14 +157,14 @@ class MaintenanceMailer(object):
     def send(self,receiver,message):
         """Send SMTP Mail"""
         with smtplib.SMTP(self.server,self.port) as server:
+            if self.use_tls:
+                if server.starttls(context=self.ssl_context)[0] != 220:
+                    logging.error("Failed to Start TLS")
+                    return False
+                server.login(self.username,self.password)
             server.sendmail(
                 self.sender,
                 receiver,
                 message.as_string()
             )
-
-        class body_html(object):
-            """ """
-            def __init__(self):
-                pass
 
